@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/obar1.jpg" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>Obstacle Avoiding Robot using Arduino</h2>
+              <h3>Introduction</h3>
+              <p>     
+                This Arduino project involves building a simple robot that uses an ultrasonic sensor to avoid obstacles and navigate its environment. The robot can move forward, backward, turn left, and turn right to avoid obstacles in its path. It is controlled by an Arduino board and a servo motor for steering.              </p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino board (e.g., Arduino Uno)</p>
+              <p>Ultrasonic sensor (HC-SR04)</p>
+              <p>Servo motor</p>
+              <p>Motor driver (L298N or similar)</p>
+              <p>Chassis with wheels and motors</p>
+              <p>Jumper wires</p>
+              <p>Breadboard (optional)</p>
+              <p>9V battery (or power source)</p>
+              <p>Power source for the servo motor</p>
+              <p>USB cable for programming the Arduino</p>
+              
+
+              <h3>Wiring Diagram</h3>
+              <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                  <div class="swiper-wrapper align-items-center">
+    
+                      <img src="assets/img/portfolio/obar2.jpg" alt="">
+    
+                    
+    
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+              <h3>Code</h3>
+              <p>The Arduino code for this project is provided in the previous code examples. It includes functions to control the robot's movements, read distances using the ultrasonic sensor, and adjust the servo motor for steering. The code utilizes the Servo library for servo motor control.
+
+              </p>
+              <h3>Setup</h3>
+              <p>1. Connect the components as shown in the wiring diagram above.</p>
+              <p>2. Upload the Arduino code to the Arduino board using the Arduino IDE.</p>
+              <p>3. Ensure that the power source for the servo motor is connected and providing power.</p>
+
+              <h3>How It Works</h3>
+
+              <p>1. The ultrasonic sensor (HC-SR04) is used to detect obstacles in front of the robot.</p>
+              <p>2. The robot moves forward until it detects an obstacle within a certain distance (defined as `maxLowDistance` in the code).</p>
+              <p>3. If an obstacle is detected, the robot stops and checks the distances to the right and left sides using the servo motor.</p>
+              <p>4. If there is more space on one side, the robot turns in that direction (right or left) and then continues moving forward.</p>
+              <p>5. If there is no clear path on either side, the robot reverses and then stops.</p>
+
+              <h3>Troubleshooting</h3>
+
+              <p>- Ensure that the wiring connections are correct and secure.</p>
+              <p>- Double-check the power source for the servo motor and its voltage requirements.</p>
+              <p>- Adjust the `maxLowDistance` variable in the code to set the distance threshold for obstacle detection.</p>
+              <p>- Monitor the serial monitor for debugging information if issues arise.</p>
+
+              <h3>Future Enhancements</h3>
+
+              <p>This project can be expanded and enhanced in various ways:</p>
+
+              <p>- Adding additional sensors for more advanced obstacle avoidance.</p>
+              <p>- Implementing wireless control through Bluetooth or Wi-Fi.</p>
+              <p>- Integrating a camera for vision-based navigation.</p>
+              <p>- Developing a mobile app or remote control interface.</p>
+
+              <h3>Conclusion</h3>
+
+              <p>This Arduino robot project demonstrates the use of an ultrasonic sensor and servo motor for obstacle avoidance and navigation. By customizing and expanding upon this project, you can create more sophisticated autonomous robots for various applications.</p>
+
+              <h3>Resources</h3>
+
+              <p>- [Servo Library](https://www.arduino.cc/en/Reference/Servo)</p>
+              <p>- [HC-SR04 Ultrasonic Sensor Datasheet](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf)</p>
+              <p>- [Arduino Official Website](https://www.arduino.cc/)</p>
+
+
+
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/tl1.jpg" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>Arduino Traffic Light Simulation Project Report</h2>
+              <h3>Introduction</h3>
+              <p>The main objective of this project is to create a realistic simulation of a traffic light system using Arduino Uno R3. A traffic light system is a common and practical application that demonstrates how microcontrollers can be used to control physical devices. In this simulation, we have three LEDs representing the standard red, yellow, and green traffic light signals. Additionally, we use a potentiometer to allow user interaction, simulating the real-world scenario where traffic lights change based on the input from sensors or traffic detectors.</p>
+
+<p>Traffic lights are a vital part of urban infrastructure, ensuring the safe and efficient flow of vehicular and pedestrian traffic. By simulating a traffic light system, this project provides an educational platform to learn about microcontroller programming, analog sensor input, and interfacing with external components like LEDs and LCD displays.</p>
+              <h3>Components</h3>
+                <p>Arduino Uno R3</p>
+                <p>Red LED</p>
+                <p>Green LED</p>
+                <p>Yellow LED</p>
+                <p>270 Ω Resistor</p>
+                <p>250 kΩ Potentiometer</p>
+                <p>LCD 16 x 2</p>
+                <p>1 kΩ Resistor</p>
+<h3>Project Operation :</h3>
+              <p> The operation of this traffic light simulation project is as follows:</p>
+
+              <p>Initialization: When the system is powered on, an initialization sequence is displayed on the 16x2 LCD. First, it shows "Turning On Traffic Light" for 2 seconds to indicate that the system is starting up. Then, it displays "SYSTEM ON" for 1.5 seconds to signal that the system is ready to function.
+</p>
+<p>Main Loop: After initialization, the system enters the main loop, continuously reading the analog value from the potentiometer (Rpot1) connected to analog pin A0. This potentiometer serves as a user input control.
+</p>
+<p>LED Control: Based on the potentiometer reading, the Arduino decides which LED to light up:</p>
+<p>If the potentiometer reading falls between 10 and 80, the Red LED (D1) is illuminated to indicate "STOP!!" The LCD displays this message.</p>
+<p>If the reading is between 80 and 160, the Yellow LED (D2) is lit, and the LCD shows "START."</p>
+<p>For readings outside these ranges, the Green LED (D3) is activated, and the LCD displays "GO!!"</p>
+
+<p>Real-time Updates: As the user adjusts the potentiometer, the LED states and LCD messages change in real-time to reflect the current traffic light condition. This mimics how traffic lights dynamically adapt to the surrounding conditions.
+</p>
+              <h3>Circuit diagram</h3>
+              
+              
+              <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                  <div class="swiper-wrapper align-items-center">
+    
+                      <img src="assets/img/portfolio/tl2.jpg" alt="">
+    
+                    
+    
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+              <h3>Code</h3>
+
+              <div class="portfolio-info">
+                <p>#include <LiquidCrystal.h></p>
+                    <p>     int potpin = A0;</p>
+                    <p>    int red = 9;</p>
+                    <p>    int yellow = 8;</p>
+                    <p>    int green = 7;</p>
+                    <p>    int inputVal = 0;</p>
+                    <p>    LiquidCrystal lcd(11, 10, 5, 4, 3, 2); </p>
+                    
+                    
+                    <p>    void setup()</p>
+                    <p>     {</p>
+                        <p>          pinMode (red, OUTPUT);</p>
+                        <p>          pinMode (yellow, OUTPUT);</p>
+                        <p>          pinMode (green, OUTPUT);</p>
+                        <p>          lcd.begin(16, 2);</p>
+                        <p>          lcd.setCursor(0, 0);</p>
+                        <p>         lcd.print("   Turning On   ");</p>
+                        <p>          lcd.setCursor(0, 1);</p>
+                        <p>           lcd.print(" Traffic  Light ");</p>
+                        <p>           delay(2000);</p>
+                        <p>           lcd.clear();</p>
+                          <p>        lcd.setCursor(0, 0);</p>
+                          <p>         lcd.print("     SYSTEM");</p>
+                          <p>          lcd.setCursor(0, 1);</p>
+                          <p>          lcd.print("       ON");</p>
+                          <p>         delay(1500);</p>
+                          <p>          lcd.clear();</p>
+                          <p>     }</p>
+                    
+                          <p>       void loop()</p>
+                          <p>      {</p>
+                            <p>         inputVal = analogRead(potpin)/4;</p>
+                            <p>           if ((inputVal>=10)&&(inputVal<=80))</p>
+                            <p>           {</p>
+                                <p>           lcd.clear();</p>
+                            <p>             analogWrite(red, 255);</p>
+                            <p>            analogWrite(yellow, 0);</p>
+                              <p>           analogWrite(green, 0);</p>
+                              <p>         lcd.setCursor(0, 1);</p>
+                              <p>        lcd.print("       STOP!!");</p>
+                            <p>          delay(100);</p>
+                            <p>       }</p>
+                            <p>     else if ((inputVal>80) && (inputVal<160)) </p>
+                            <p>     {</p>
+                                <p>        lcd.clear();</p>
+                                <p>        analogWrite(red, 0);	</p>
+                                <p>         analogWrite(yellow, 255);</p>
+                                <p>        analogWrite(green, 0);</p>
+                                <p>     lcd.setCursor(0, 1);</p>
+                                <p>       lcd.print("       START");</p>
+                                <p>        delay(100);</p>
+                                <p>      }</p>
+                                <p>      else</p>
+                                <p>      {</p>
+                            <p>           lcd.clear();</p>
+                            <p>       analogWrite(red, 0);	</p>
+                            <p>          analogWrite(yellow, 0);</p>
+                            <p>          analogWrite(green, 255);</p>
+                            <p>        lcd.setCursor(0, 1);</p>
+                            <p>        lcd.print("       GO!!");</p>
+                            <p>          delay(100);</p>
+                            <p>     }</p>
+                            <p>      delay(100);</p>
+
+              </div>
+                                           
+              <h3>Conclusion : </h3>
+              <p>This Arduino-based traffic light simulation project demonstrates the fundamental concepts of microcontroller-based control systems and user interaction. By mimicking a traffic light, it showcases the practical application of microcontrollers in real-world scenarios.
+            </p>
+            <p>The project successfully achieves its primary objectives, including:</p>
+              
+            <p>Simulating a traffic light system with three distinct LED signals.</p>
+            <p>  Using a potentiometer to allow user input, enabling dynamic changes in the traffic light states.</p>
+            <p> Displaying clear messages on the LCD to indicate the current traffic light state.</p>
+            <p> Additionally, this project can be extended and improved upon to make it even more realistic and interactive. It serves as an educational tool for individuals interested in learning about microcontroller programming and embedded systems. Future enhancements could include adding pedestrian crossing signals, implementing timers to control light durations, and improving the user interface.
+            </p>
+            <p> Overall, this project provides a solid foundation for understanding Arduino programming and practical electronics while simulating an essential component of urban infrastructure – the traffic light system.
+            </p>
+              
+              
+              
+              
+              
+              <h3>Future Enhancements : </h3>
+              <p> While the current Arduino Traffic Light Simulation project effectively replicates the operation of a basic traffic light system, there is ample room for future enhancements and improvements:
+            </p>
+            <p> 1. Pedestrian Crossing Signals: To enhance road safety, consider adding pedestrian crossing signals with buttons for pedestrians to trigger. This would create a more realistic traffic scenario and contribute to safer urban environments.
+            </p>
+            <p> 2. Timer Functionality: Implement a timer mechanism to control the duration of each traffic light state (red, yellow, and green). Adding programmable timing sequences could simulate traffic flow variations throughout the day.
+            </p>  
+            <p> 3. User Interaction: Incorporate physical or digital interfaces for user interaction. For example, allowing users to control the traffic light system through a smartphone app or physical buttons can be a valuable addition for educational purposes.
+            </p>  
+            <p> 4. Traffic Density Simulation: Integrate sensors or data sources (e.g., real-time traffic data) to simulate traffic density and adjust traffic light timings accordingly. This could make the simulation even more dynamic and realistic.
+            </p>  
+            <p>5. Advanced Traffic Algorithms: Explore and implement more advanced traffic control algorithms, such as adaptive signal control, which dynamically adjusts signal timing based on traffic flow patterns.
+            </p>  
+            <p>6. Multi-Lane Simulation: Extend the project to simulate multi-lane roads with left-turn signals and dedicated lanes for different types of vehicles, offering a comprehensive traffic management experience.
+            </p>  
+            <p>7. Integration with IoT: Connect the traffic light system to the Internet of Things (IoT) to collect and analyze traffic data. This data can be used for traffic management optimization and decision-making.
+            </p>  
+            <p>8. Visualization: Create a graphical user interface (GUI) or web-based dashboard to visualize traffic conditions and control the traffic lights remotely. This adds a layer of accessibility and monitoring.
+            </p>  
+            <p>9. Educational Tools: Adapt the project into an educational tool by providing explanations of traffic management principles, traffic engineering concepts, and road safety practices.
+            </p>
+            <p>By pursuing these future enhancements, the Arduino Traffic Light Simulation project can evolve into a sophisticated and educational platform for traffic management and urban planning studies, offering a broader range of functionalities and insights into traffic control systems.
+            </p>
+              
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

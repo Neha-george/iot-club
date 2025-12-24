@@ -1,0 +1,15 @@
+{
+    "name": "iot-club-monorepo",
+    "private": true,
+    "workspaces": [
+        "apps/*"
+    ],
+    "scripts": {
+        "dev": "concurrently \"npm run dev -w apps/main\" \"npm run dev -w apps/membership\" \"npm run dev -w apps/lending\" \"npm run emulators -w apps/lending\"",
+        "deploy:lending": "npm run build -w apps/lending && firebase deploy --only hosting:lending",
+        "deploy:main": "npm run build -w apps/main && firebase deploy --only hosting:main"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

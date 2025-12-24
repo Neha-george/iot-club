@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/rfid1.webp" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>RFID-BASED SMART ATTENDANCE SYSTEM</h2>
+              <h3>Introduction</h3>
+              <p>     
+                It is a smart attendance system using Arduino UNO and RFID MFRC522 Module.</p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino UNO</p>
+              <p>RFID reader</p>
+              <p>Breadboard and jumper wires</p>
+              <p>Servo modules</p>
+              <p>Alphanumeric LCD, 20x4</p>
+              
+              
+
+              <h3>Circuit diagram</h3>
+              
+
+              <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                  <div class="swiper-wrapper align-items-center">
+    
+                      <img src="assets/img/portfolio/rfid2.jpg" alt="">
+    
+                    
+    
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+              <h3>Code</h3>
+
+              <div class="portfolio-info">
+                <p>       #include <SPI.h></p>
+                    <p>           #include <MFRC522.h> //library for rfid sensor</p>
+                        <p>            #include <RTClib.h> //library for rtc module</p>
+                            <p>           #include <SD.h> //library for sd card module</p>
+                                <p>          #include <Wire.h> </p>
+                                    <p>           #include <LiquidCrystal_I2C.h> //library for i2c module</p>
+                                        <p>#include <Servo.h> //library for servo moter</p>
+                    
+                                            <p>     //define pins for rfid sensor</p>
+                                            <p>      #define SS_PIN 10</p>
+                                            <p>     #define RST_PIN 9</p>
+                                            <p>      //define select pin for SD card module</p>
+                                            <p>      #define CS_SD 4 </p>
+                    
+                                            <p>      Servo myservo;  // create servo object to control a servo.</p>
+                                            <p>      MFRC522 mfrc522(SS_PIN, RST_PIN); // Create MFRC522 instance.</p>
+                    <p>     RTC_DS3231 rtc;// Instance of the class for RTC</p>
+                    <p>     LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3,POSITIVE);//instance for lcd display</p>
+                    
+                    <p>     const int numOfCards = 5;//the number of cards used. this can change as you want</p>
+                    <p>     byte cards[numOfCards][4] = {{0x69, 0x38, 0xFD, 0x6E},{0x29, 0xCE, 0xE2, 0x6E},{0xD9, 0x45, 0xE5, 0x6E},{0xA9, 0x76, 0x47, 0xB8},{0x59, 0x3F, 0x16, 0x98}}; // array of UIDs of rfid cards</p>
+                    <p>     int n = 0;//n is for the total number of students//j is for to detect the card is valid or not</p>
+                    <p>     int numCard[numOfCards]; //this array content the details of cards that already detect or not .</p>
+                    <p>    String names[numOfCards] = {"Janith Hasitha","Nirosh Bandara","Manoj Akalanka","Milan Sankalpa","Chamila Bandara"};//student names</p>
+                    <p>       long sNumbers[numOfCards] = {16242,16273,16389,16322,16323};//student sNumbers</p>
+                    
+                    <p>       void setup() {</p>
+                        <p>        Serial.begin(9600); // Initialize serial communications with the PC</p>
+                        <p>        SPI.begin();  // Init SPI bus</p>
+                      <p>         mfrc522.PCD_Init(); // Init MFRC522 card</p>
+                      
+                    
+                      <p>      //setup for lcd screen</p>
+                      <p>       lcd.begin(20,4);// initialize the lcd</p>
+                    
+                      <p>      myservo.attach(6);  // attaches the servo on pin 9 to the servo object</p>
+                    
+                      <p>      //setup for RTC module</p>
+                      <p>      #ifndef ESP8266</p>
+                      <p>        while (!Serial); // for Leonardo/Micro/Zero</p>
+                      <p>       #endif</p>
+                      <p>       if (! rtc.begin()) {</p>
+                        <p>         Serial.println(F("Couldn't find RTC"));</p>
+                        <p>          while (1);</p>
+                        <p>        }</p>
+                        <p>else{</p>
+                            <p>               rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));//time will set auto when it compiles</p>
+                            <p>             //rtc.adjust(DateTime(2020, 1, 9, 16, 59, 45));// manually set time</p>
+                            <p>           }</p>
+                      <p>           if (rtc.lostPower()) {</p>
+                        <p>             Serial.println(F("RTC lost power, lets set the time!"));</p>
+                        <p>            }</p>
+                    
+                        <p>            //setup for display option (serial monitor)</p>
+                        <p>           Serial.println(F("\t\t\t<<<< Library Attendance >>>>\n")); // introduction</p>
+                        <p>           Serial.println(F("COUNT\tRegNO\tNAME\t\tDATE\t\tARRIVAL\t\tDEPARTURE"));// make four columns</p>
+                    
+                        <p>           //setup sd card</p>
+                        <p>        //  Serial.print(F("Initializing SD card..."));</p>
+                        <p>         digitalWrite(CS_SD,LOW);</p>
+                    
+                        <p>        //  if (!SD.begin(4)) {//checks the sd card inserted and if it not the program will not working.</p>
+                            <p>      //    Serial.println(F("initialization failed!"));</p>
+                            <p>      //    while (1);</p>
+                            <p>      //  }</p>
+                            <p>      //  Serial.println(F("initialization done."));</p>
+                    
+                      
+                            <p>          File  myFile = SD.open("test.txt", FILE_WRITE);</p>
+                            <p>         if (myFile) {</p>
+                                <p>           myFile.print(F("  \t**** Library Attendance ****\n"));</p>
+                                <p>          myFile.println(F("COUNT\tRegNO\tNAME\t\tDATE\t\tARRIVAL\t\tDEPARTURE"));</p>
+                                <p>           // close the file:</p>
+                                <p>          myFile.close();</p>
+                                <p>          Serial.println(F("done."));</p>
+                                <p>        } else {</p>
+                                    <p>         // Serial.println(F("error opening test.txt"));</p>
+                                    <p>     }</p>
+                    
+                                    <p>        myFile = SD.open("test.txt");</p>
+                                    <p>        if (myFile) {</p>
+                                        <p>          Serial.println(F("test.txt:"));</p>
+                    
+                                        <p>        while (myFile.available()) {</p>
+                                            <p>           Serial.write(myFile.read());</p>
+                                            <p>         }</p>
+                        
+                                            <p>       myFile.close();</p>
+                                            <p>     } else {</p>
+                                                <p>       // Serial.println(F("error opening test.txt"));</p>
+                                                <p>        }</p>
+                                                <p>        digitalWrite(CS_SD,HIGH);</p>
+                                                <p>     }</p>
+                    
+                                                <p>     void readRFID(){</p>
+                                                    <p>       int j = -1;</p>
+                                                    <p>       byte card_ID[4];//card UID size 4byte</p>
+                      
+                                                    <p>     if ( ! mfrc522.PICC_IsNewCardPresent()) {//look for new card</p>
+                                                        <p>       return;//got to start of loop if there is no card present</p>
+                                                        <p>     }</p>
+                                                        <p>     if ( ! mfrc522.PICC_ReadCardSerial()) {// Select one of the cards</p>
+                  <p>      return;//if read card serial(0) returns 1, the uid struct contians the ID of the read card.</p>
+                  <p>     }</p>
+                    
+                  <p>     for (byte i = 0; i < mfrc522.uid.size; i++) {</p>
+                    <p>         card_ID[i] = mfrc522.uid.uidByte[i];</p>
+                    <p>         }</p>
+                      
+                    <p>         for (int i = 0; i < numOfCards; i++) {</p>
+                        <p>           if (card_ID[0] == cards[i][0] && card_ID[1] == cards[i][1] && card_ID[2] == cards[i][2] && card_ID[3] == cards[i][3]) {</p>
+                            <p>            j = i;</p>
+                            <p>          }</p>
+                            <p>        }</p>
+                      
+                            <p>       if(j == -1) {//check the card validity</p>
+                                <p>           invalid();</p>
+                        <p>        }</p>
+                        <p>        else if (numCard[j] == 1) { //to check if the card already detect</p>
+                            <p>         alreadyRead(names[j], sNumbers[j], j);</p>
+                            <p>       }</p>
+                            <p>             else {</p>
+                                <p>              //send data to display and save</p>
+                                <p>              logCardData(names[j], sNumbers[j], j);</p>
+                                <p>           }</p>
+                                <p>          delay(1000);</p>
+                                <p>        }</p>
+                    
+                                <p>       void servo(){//method for servo motor</p>
+                                    <p>         int pos = 0;    // variable to store the servo position</p>
+                                    <p>         for (pos = 90; pos >= 0; pos -= 1) { // goes from 0 degrees to 90 degrees</p>
+                                        <p>           // in steps of 1 degree</p>
+                        <p>           myservo.write(pos);              </p>
+                        <p>            delay(5);           </p>            
+                        <p>         }</p>
+                        <p>          delay(5000);</p>
+                        <p>           for (pos = 0; pos <= 90; pos += 1) {// goes from 90 degrees to 0 degrees</p>
+                            <p>            myservo.write(pos);             </p>
+                            <p>            delay(5);                       </p>
+                            <p>         }</p>
+                            <p>        }</p>
+                    
+                            <p>      void logCardData(String name, long sNumber, int j){</p>
+                                <p>        displayAllow(name,sNumber);</p>
+                      <p>         DateTime now = rtc.now();</p>
+                      <p>          numCard[j] = 1;//put 1 in the numCard array : numCard[j]={1,1} to let the arduino know if the card was detecting</p>
+                      <p>          n++;//to get the count</p>
+                    
+                      <p>          //display details to the console (serial monitor)</p>
+                      <p>          Serial.print(n);//print number</p>
+                      <p>           Serial.print(F("\t"));</p>
+                      <p>          Serial.print(sNumber); //print name of student </p>
+                      <p>             Serial.print(F("\t"));</p>
+                      <p>             Serial.print(name); //print name of student</p>
+                      <p>             Serial.print(F("\t"));</p>
+                      <p>            Serial.print(now.year(),DEC); //print year</p>
+                      <p>           Serial.print(F("-"));</p>
+                      <p>           if(now.month()<10){Serial.print("0");Serial.print(now.month(),DEC);}</p></10>
+                      <p>           else Serial.print(now.month(),DEC); //print month</p>
+                      <p>          Serial.print(F("-"));</p>
+                      <p>          if(now.day()<10){Serial.print("0");Serial.print(now.day(),DEC);} //if the day is one digit this will display it with zero in front as two digits.</p></10>
+                      <p>          else Serial.print(now.day(),DEC);</p>
+                      <p>           Serial.print(F("\t")); </p>
+                      <p>          if(now.hour()<10){Serial.print("0");Serial.print(now.hour(),DEC);}</p>
+                      <p>        else Serial.print(now.hour(),DEC);</p>
+                      <p>        Serial.print(F(":"));</p>
+                      <p>         if(now.minute()<10){Serial.print("0");Serial.print(now.minute(),DEC);}</p>
+                      <p>         else Serial.print(now.minute(),DEC);</p>
+                      <p>           Serial.print(F(":"));</p>
+                      <p>          if(now.second()<10){Serial.print("0");Serial.print(now.second(),DEC);}</p>
+                      <p>            else Serial.print(now.second(),DEC);</p>
+                      <p>           Serial.print(F("\t"));</p>
+                      <p>           Serial.println(F("--:--:-- ")); </p>
+                    
+                      <p>           digitalWrite(CS_SD,LOW);</p>
+                      <p>            File  myFile = SD.open("test.txt", FILE_WRITE);//record the data to the sd card</p>
+                      <p>           if (myFile) {</p>
+                        <p>          myFile.print(n);//print number</p>
+                        <p>           myFile.print(F("\t"));</p>
+                        <p>            myFile.print(sNumber); //print name of student </p>
+                        <p>            myFile.print(F("\t"));</p>
+                        <p>           myFile.print(name); //print name of student</p>
+                        <p>           myFile.print(F("\t"));</p>
+                        <p>           myFile.print(now.year(),DEC); //print year</p>
+                          <p>           myFile.print(F("-"));</p>
+                          <p>          if(now.month()<10){myFile.print("0");myFile.print(now.month(),DEC);}</p>
+                          <p>          else myFile.print(now.month(),DEC); //print month</p>
+                          <p>          myFile.print(F("-"));</p>
+                          <p>           if(now.day()<10){myFile.print("0");myFile.print(now.day(),DEC);}</p>
+                          <p>          else myFile.print(now.day(),DEC);</p>
+                          <p>           myFile.print(F("\t")); </p>
+                          <p>           if(now.hour()<10){myFile.print("0");myFile.print(now.hour(),DEC);}</p>
+                          <p>            else myFile.print(now.hour(),DEC);</p>
+                          <p>            myFile.print(F(":"));</p>
+                          <p>             if(now.minute()<10){myFile.print("0");myFile.print(now.minute(),DEC);}</p>
+                          <p>            else myFile.print(now.minute(),DEC);</p>
+                          <p>           myFile.print(F(":"));</p>
+                          <p>            if(now.second()<10){myFile.print("0");myFile.print(now.second(),DEC);}</p>
+                          <p>            else myFile.print(now.second(),DEC);</p>
+                          <p>              myFile.print(F("\t"));</p>
+                          <p>              myFile.println(F("--:--:--")); </p>
+                          <p>             myFile.close();</p>
+                          <p>              Serial.println(F("done."));</p>
+                          <p>          } else {</p>
+                            <p>            // Serial.println(F("error opening test.txt"));</p>
+                            <p>          }</p>
+                            <p>           digitalWrite(CS_SD,HIGH);</p>
+                            <p>        }</p>
+                    
+                            <p>        void invalid(){</p>
+                                <p>         Serial.println(F("Invalid Card."));</p>
+                                <p>          digitalWrite(CS_SD,LOW);</p>
+                                <p>         File  myFile = SD.open("test.txt", FILE_WRITE);</p>
+                                <p>        if (myFile) {</p>
+                                    <p>        myFile.println(F("Invalid Card."));</p>
+                                    <p>        myFile.close();</p>
+                                    <p>         Serial.println(F("done."));</p>
+                                    <p>       } else {</p>
+                                        <p>         // Serial.println(F("error opening test.txt"));</p>
+                                        <p>         }</p>
+                                        <p>        digitalWrite(CS_SD,LOW);</p>
+                      
+                                        <p>      lcd.home ();</p>
+                                        <p>       lcd.clear();</p>
+                                        <p>      lcd.setCursor (6, 0 );// go home</p>
+                                        <p>     lcd.print(F("Warning!"));</p>
+                                        <p>      lcd.setCursor (4, 2 );</p>
+                                        <p>      lcd.print(F("Invalid Card!"));</p>
+                                        <p>      lcd.setCursor (3, 3 );</p>
+                                        <p>      lcd.print(F("Access Denied!"));</p>
+                                        <p>       delay(3000);</p>
+                                        <p>        lcd.clear();</p>
+                                        <p>      }</p>
+                    
+                                        <p>     void alreadyRead(String name, long sNumber, int j){</p>
+                                            <p>       DateTime now = rtc.now();</p>
+                                            <p>        numCard[j] = 0;//put 1 in the numCard array : numCard[j]={1,1} to let the arduino know if the card was detecting</p>
+                                            <p>       n--;//to get the count</p>
+                      
+                                            <p>       //display details to the console (serial monitor)</p>
+                                            <p>      Serial.print(n);//print number</p>
+                                            <p>       Serial.print(F("\t"));</p>
+                                            <p>       Serial.print(sNumber); //print name of student </p>
+                                            <p>       Serial.print(F("\t"));</p>
+                                            <p>       Serial.print(name); //print name of student</p>
+                                            <p>       Serial.print(F("\t"));</p>
+                                            <p>      Serial.print(now.year(),DEC); //print year</p>
+                                            <p>      Serial.print(F("-"));</p>
+                                            <p>       if(now.month()<10){Serial.print("0");Serial.print(now.month(),DEC);}</p>
+                                            <p>       else Serial.print(now.month(),DEC); //print month</p>
+                                            <p>       Serial.print(F("-"));</p>
+                                            <p>     if(now.day()<10){Serial.print("0");Serial.print(now.day(),DEC);}</p>
+                                            <p>     else Serial.print(now.day(),DEC);</p>
+                                            <p>     Serial.print(F("\t"));</p>
+                                            <p>    Serial.print(F("--:--:--")); </p>
+                                            <p>     Serial.print(F("\t")); </p>
+                                            <p>     if(now.hour()<10){Serial.print("0");Serial.print(now.hour(),DEC);}</p>
+                                            <p>    else Serial.print(now.hour(),DEC);</p>
+                                            <p>     Serial.print(F(":"));</p>
+                                            <p>      if(now.minute()<10){Serial.print("0");Serial.print(now.minute(),DEC);}</p>
+                                            <p>           else Serial.print(now.minute(),DEC);</p>
+                                            <p>        Serial.print(F(":"));</p>
+                                            <p>        if(now.second()<10){Serial.print("0");Serial.println(now.second(),DEC);}</p>
+                                            <p>       else Serial.print(now.second(),DEC);</p>
+                                            <p>         Serial.println(" ");</p>
+                    
+                                            <p>         digitalWrite(CS_SD,LOW);</p>
+                                            <p>        File  myFile = SD.open("test.txt", FILE_WRITE);</p>
+                                            <p>         if (myFile) {</p>
+                                                <p>           myFile.print(n);//print number</p>
+                                                <p>           myFile.print(F("\t"));</p>
+                                                <p>          myFile.print(sNumber); //print name of student </p>
+                                                <p>          myFile.print(F("\t"));</p>
+                                                <p>           myFile.print(name); //print name of student</p>
+                          <p>           myFile.print(F("\t"));</p>
+                          <p>         myFile.print(now.year(),DEC); //print year</p>
+                          <p>         myFile.print(F("-"));</p>
+                          <p>         if(now.month()<10){myFile.print("0");myFile.print(now.month(),DEC);}</p>
+                          <p>          else myFile.print(now.month(),DEC); //print month</p>
+                          <p>         myFile.print(F("-"));</p>
+                          <p>           if(now.day()<10){myFile.print("0");myFile.print(now.day(),DEC);}</p>
+                          <p>         else myFile.print(now.day(),DEC);</p>
+                          <p>         myFile.print(F("\t"));</p>
+                          <p>         myFile.print(F("--:--:--")); </p>
+                          <p>         myFile.print(F("\t")); </p>
+                          <p>        if(now.hour()<10){myFile.print("0");myFile.print(now.hour(),DEC);}</p>
+                          <p>        else myFile.print(now.hour(),DEC);</p>
+                          <p>          myFile.print(F(":"));</p>
+                          <p>           if(now.minute()<10){myFile.print("0");myFile.print(now.minute(),DEC);}</p>
+                          <p>          else myFile.print(now.minute(),DEC);</p>
+                          <p>           myFile.print(F(":"));</p>
+                          <p>         if(now.second()<10){myFile.print("0");myFile.print(now.second(),DEC);}</p>
+                          <p>               else myFile.println(now.second(),DEC);</p>
+                          <p>               myFile.close();</p>
+                          <p>             Serial.println(F("done."));</p>
+                          <p>           } else {</p>
+                            <p>              // Serial.println(F("error opening test.txt"));</p>
+                            <p>          }</p>
+                            <p>         digitalWrite(CS_SD,HIGH);</p>
+                    
+                            <p>        lcd.home ();</p>
+                            <p>        lcd.clear();</p>
+                      <p>       lcd.setCursor (5, 1 );// go home</p>
+                      <p>        lcd.print(F("Thank You"));</p>
+                      <p>       lcd.setCursor (4, 2 );</p>
+                      <p>        lcd.print(F("Come Again!"));</p>
+                      <p>        delay(3000);</p>
+                      <p>        servo();</p>
+                      <p>        lcd.clear();</p>
+                      <p>       }</p>
+                    
+                      <p>    void printLoopLCD(){//method for display date and time and number of students attendance to the lcd dislpay </p>
+                        <p>         DateTime now = rtc.now();</p>
+                        <p>         lcd.home ();// go home</p>
+                        <p>        lcd.setCursor (1, 0);</p>
+                        <p>         lcd.print(F("Welcome to Library"));  </p>
+                        <p>         lcd.setCursor (0, 1 );</p>
+                        <p>           lcd.print(now.year(),DEC); //print year+</p>
+                        <p>           lcd.print(F("-"));</p>
+                        <p>            if(now.month()<10){lcd.print("0");lcd.print(now.month(),DEC);}</p>
+                      <p>           else lcd.print(now.month(),DEC); //print month</p>
+                      <p>           lcd.print(F("-"));</p>
+                      <p>           if(now.day()<10){lcd.print("0");lcd.print(now.day(),DEC);}</p>
+                      <p>           else lcd.print(now.day(),DEC);</p>
+                      <p>           //lcd.print(now.day(),DEC); //print date</p>
+                      <p>           lcd.setCursor (12, 1 );</p>
+                      <p>           if(now.hour()<10){lcd.print("0");lcd.print(now.hour(),DEC);}</p>
+                      <p>           else lcd.print(now.hour(),DEC);</p>
+                      <p>             //lcd.print(now.hour(),DEC);</p>
+                      <p>             lcd.print(F(":"));</p>
+                      <p>              if(now.minute()<10){lcd.print("0");lcd.print(now.minute(),DEC);}</p>
+                      <p>              else lcd.print(now.minute(),DEC);</p>
+                      <p>             //lcd.print(now.minute(),DEC);</p>
+                      <p>            lcd.print(F(":"));</p>
+                      <p>            if(now.second()<10){lcd.print("0");lcd.print(now.second(),DEC);}</p>
+                      <p>           else lcd.print(now.second(),DEC);</p>
+                      <p>           //lcd.print(now.second(),DEC);</p>
+                      <p>           lcd.setCursor (0, 3 );</p>
+                      <p>           lcd.print(F("No of Students:"));</p>
+                      <p>           lcd.setCursor (16, 3 );</p>
+                      <p>           lcd.print(n);</p>
+                      <p>           delay(1000);</p>
+                      <p>         }
+                    
+                        <p>        void displayAllow(String name,long sNumber){</p>
+                            <p>           lcd.home ();</p>
+                            <p>           lcd.clear();</p>
+                            <p>           lcd.setCursor (6, 0 );</p>
+                            <p>          lcd.print(F("Welcome!"));  </p>
+                            <p>          lcd.setCursor (1, 1 );</p>
+                            <p>          lcd.print(F("Authorized Access!"));</p>
+                      <p>         lcd.setCursor (0, 2 );</p>
+                      <p>        lcd.print(F("Name:"));</p>
+                      <p>         lcd.setCursor (5, 2 );</p>
+                      <p>          lcd.print(name);</p>
+                      <p>         lcd.setCursor (0, 3 );</p>
+                      <p>          lcd.print(F("SNo :S"));</p>
+                      <p>          lcd.setCursor (6, 3 );</p>
+                      <p>          lcd.print(sNumber);</p>
+                      <p>           delay(3000);</p>
+                      <p>           servo();</p>
+                      <p>           lcd.clear();</p>
+                      <p>        }</p>
+                    
+                      <p>       void checkTime(){</p>
+                        <p>        //check the time if the time is 6pm the system will stop working (time out)</p>
+                        <p>         lcd.home ();</p>
+                        <p>          lcd.clear();</p>
+                        
+                        <p>          if(n != 0){ //check the nuber of student is 0 or not</p>
+                            <p>           Serial.println(F("Warning!"));</p>
+                          <p>            Serial.print(F("Count not zero!"));</p>
+                          <p>          lcd.setCursor (6, 1 );</p>
+                          <p>          lcd.print(F("Warning!"));</p>
+                          <p>           lcd.setCursor (3, 2 );</p>
+                          <p>           lcd.print(F("Count not zero!"));</p>
+                          <p>            delay(5000);</p>
+                          <p>            }</p>
+                          <p>          //else{</p>
+                            <p>            Serial.println(F("Session has expired!"));</p>
+                            <p>           Serial.print(F("No of students :"));</p>
+                            <p>           Serial.println(n);</p>
+                            <p>           lcd.home ();</p>
+                            <p>          lcd.clear();</p>
+                          <p>           lcd.setCursor (6, 0 );</p>
+                          <p>           lcd.print(F("Library")); </p>
+                          <p>          lcd.setCursor (0, 1 );</p>
+                          <p>         lcd.print(F("Session has expired!"));  </p>
+                          <p>         lcd.setCursor (0, 3 );</p>
+                          <p>        lcd.print(F("No of students :"));</p>
+                          <p>        lcd.print(n);</p>
+                          <p>   //    }    </p>
+                             
+                          <p>          delay(46800000);//delay for 12 hours</p>
+                          <p>          lcd.clear();</p>
+                          <p>       }</p>
+                    
+                          <p>     void loop() {</p> 
+                            <p>       DateTime now = rtc.now();</p>
+                            <p>       if (now.hour() < 7 || now.hour() >= 18) {</p>
+                                <p>          checkTime();</p>
+                                <p>       }</p>
+                                <p>        printLoopLCD();//print details on lcd screen(loop)</p>
+                                <p>        readRFID(); </p>
+                                <p>      }</p>
+                    
+
+              </div>
+                                           
+
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

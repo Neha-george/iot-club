@@ -1,0 +1,205 @@
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    runTransaction,
+    doc,
+    getDoc
+} from "firebase/firestore";
+import { db } from "./firebase";
+
+/**
+ * Creates a new lend request.
+ */
+export async function createLendRequest({ userInfo, items, message }) {
+    try {
+        const requestData = {
+            requested_by_uid: userInfo.uid,
+            user_name: userInfo.displayName || userInfo.email,
+            admission_no: userInfo.admission_no || null,
+            student_class: userInfo.student_class || null,
+            user_phone: userInfo.phone || null,
+            user_email: userInfo.email,
+            items: items.map(item => ({
+                device_id: item.id,
+                device_name: item.name,
+                quantity: item.quantity
+            })),
+            message: message || "",
+            status: "Pending",
+            created_at: serverTimestamp(),
+            admin_id: null,
+            pickup_date: null
+        };
+
+        const docRef = await addDoc(collection(db, "lendRequests"), requestData);
+        return { id: docRef.id, ...requestData };
+    } catch (error) {
+        console.error("Error creating lend request:", error);
+        throw error;
+    }
+}
+
+/**
+ * Accepts a lend request transactionally.
+ */
+export async function acceptRequest(requestId, adminUid, pickupDate, expectedReturnDate) {
+    try {
+        await runTransaction(db, async (transaction) => {
+            const requestRef = doc(db, "lendRequests", requestId);
+            const requestDoc = await transaction.get(requestRef);
+
+            if (!requestDoc.exists()) {
+                throw "Request does not exist!";
+            }
+
+            const requestData = requestDoc.data();
+            if (requestData.status !== "Pending") {
+                throw "Request is not in Pending state.";
+            }
+
+            // Check stock availability
+            for (const item of requestData.items) {
+                const deviceRef = doc(db, "devices", item.device_id);
+                const deviceDoc = await transaction.get(deviceRef);
+
+                if (!deviceDoc.exists()) {
+                    throw `Device ${item.device_name} not found.`;
+                }
+
+                const deviceData = deviceDoc.data();
+                if (deviceData.available_stock < item.quantity) {
+                    throw `Insufficient stock for ${item.device_name}. Available: ${deviceData.available_stock}`;
+                }
+
+                // Decrement stock
+                transaction.update(deviceRef, {
+                    available_stock: deviceData.available_stock - item.quantity
+                });
+            }
+
+            // Create Borrow Log
+            const borrowLogRef = doc(collection(db, "borrowLogs"));
+            transaction.set(borrowLogRef, {
+                request_id: requestId,
+                user_name: requestData.user_name,
+                admission_no: requestData.admission_no,
+                student_class: requestData.student_class,
+                user_phone: requestData.user_phone,
+                user_email: requestData.user_email,
+                items: requestData.items,
+                date_borrowed: serverTimestamp(),
+                expected_return_date: expectedReturnDate, // Should be a Date object or Timestamp
+                date_returned: null,
+                status: "Borrowed",
+                admin_id: adminUid,
+                returned_by: null
+            });
+
+            // Update Request
+            transaction.update(requestRef, {
+                status: "Accepted",
+                admin_id: adminUid,
+                pickup_date: pickupDate
+            });
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Transaction failed: ", error);
+        throw error;
+    }
+}
+
+/**
+ * Manually lends items without a prior request.
+ */
+export async function manualLend(adminUid, userInfo, items, expectedReturnDate) {
+    try {
+        await runTransaction(db, async (transaction) => {
+            // Check stock availability and decrement
+            for (const item of items) {
+                const deviceRef = doc(db, "devices", item.id);
+                const deviceDoc = await transaction.get(deviceRef);
+
+                if (!deviceDoc.exists()) {
+                    throw `Device ${item.name} not found.`;
+                }
+
+                const deviceData = deviceDoc.data();
+                if (deviceData.available_stock < item.quantity) {
+                    throw `Insufficient stock for ${item.name}. Available: ${deviceData.available_stock}`;
+                }
+
+                transaction.update(deviceRef, {
+                    available_stock: deviceData.available_stock - item.quantity
+                });
+            }
+
+            // Create Borrow Log
+            const borrowLogRef = doc(collection(db, "borrowLogs"));
+            transaction.set(borrowLogRef, {
+                request_id: null,
+                user_name: userInfo.name,
+                admission_no: userInfo.admission_no,
+                student_class: userInfo.student_class,
+                user_phone: userInfo.phone,
+                user_email: userInfo.email,
+                items: items.map(item => ({
+                    device_id: item.id,
+                    device_name: item.name,
+                    quantity: item.quantity
+                })),
+                date_borrowed: serverTimestamp(),
+                expected_return_date: expectedReturnDate,
+                date_returned: null,
+                status: "Borrowed",
+                admin_id: adminUid,
+                returned_by: null
+            });
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Manual lend failed: ", error);
+        throw error;
+    }
+}
+
+/**
+ * Marks items as returned.
+ */
+export async function markReturned(logId, returnedItems, returnedByUid) {
+    try {
+        await runTransaction(db, async (transaction) => {
+            const logRef = doc(db, "borrowLogs", logId);
+            const logDoc = await transaction.get(logRef);
+
+            if (!logDoc.exists()) {
+                throw "Borrow log not found.";
+            }
+
+            // Increment stock
+            for (const item of returnedItems) {
+                const deviceRef = doc(db, "devices", item.device_id);
+                const deviceDoc = await transaction.get(deviceRef);
+
+                if (deviceDoc.exists()) {
+                    const deviceData = deviceDoc.data();
+                    transaction.update(deviceRef, {
+                        available_stock: deviceData.available_stock + item.quantity
+                    });
+                }
+            }
+
+            // Update Log
+            transaction.update(logRef, {
+                status: "Returned",
+                date_returned: serverTimestamp(),
+                returned_by: returnedByUid
+            });
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Return transaction failed: ", error);
+        throw error;
+    }
+}

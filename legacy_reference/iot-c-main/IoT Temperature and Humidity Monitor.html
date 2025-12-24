@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/thm1.jpg" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>IoT Temperature and Humidity Monitor
+            </h2>
+              <h3>Introduction</h3>
+              <p>     
+                Create a basic IoT system that measures temperature and humidity and sends the data to a cloud platform for remote monitoring.
+            </p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino board (e.g., Arduino Uno or Arduino Nano)
+            </p>
+              <p>DHT22 or DHT11 sensor for temperature and humidity
+            </p>
+              <p>Wi-Fi module (e.g., ESP8266 or ESP32)
+            </p>
+              <p>Breadboard and jumper wires
+            </p>
+              <p> Internet connection </p>
+              
+              
+
+              <h3>Project Steps</h3>
+              
+              <p>1. Sensor Connections:</p>
+              <p>- Connect the DHT22/DHT11 sensor to the Arduino for temperature and humidity readings.</p>
+              <p>2. Arduino Programming:</p>
+              <p> - Write Arduino code to read data from the DHT sensor.</p>
+              <p>- Set up Wi-Fi connectivity using the Wi-Fi module.</p>
+              <p>3. Data Transmission:</p>
+              <p> - Create a JSON format for the sensor data.</p>
+              <p> - Send this data to a cloud platform or web server.</p>
+              <p>4. Cloud Platform:</p>
+              <p> - Use a cloud service like ThingSpeak, Adafruit IO, or a custom server to receive and store data.</p>
+              <p>5. Web Dashboard:</p>
+              <p> - Create a simple web dashboard to visualize temperature and humidity data.</p>
+              <p> - Display the data in real-time using charts or graphs.</p>
+              <p>6. Remote Access:</p>
+              <p> - Ensure the dashboard is accessible from anywhere with an internet connection.</p>
+              <p> - Users can monitor temperature and humidity remotely.</p>
+              <p>This project introduces students to Arduino programming, sensor integration, Wi-Fi communication, and cloud-based data storage. It's a straightforward way to get started with IoT and remote monitoring.</p>
+              <h3>Circuit Connections:</h3>
+              <p>1. Connect the DHT Sensor:</p>
+              <p>- Connect the VCC pin of the DHT sensor to 5V on the Arduino.</p>
+              <p>- Connect the GND pin of the DHT sensor to GND on the Arduino.</p>
+              <p>- Connect the Data pin of the DHT sensor to a digital pin on the Arduino (e.g., D2).</p>
+              <p>2. Connect the ESP8266 Wi-Fi Module:</p>
+              <p> - Connect the VCC (3.3V) pin of the ESP8266 module to 3.3V on the Arduino.</p>
+              <p> - Connect the GND pin of the ESP8266 module to GND on the Arduino.</p>
+              <p>- Connect the TX (transmit) pin of the ESP8266 module to a digital pin on the Arduino (e.g.,D10).</p>
+              <p> - Connect the RX (receive) pin of the ESP8266 module to a digital pin on the Arduino (e.g.,D11).</p>
+              <p>3. Power Supply:</p>
+              <p> - Power the Arduino with a USB cable or an external power source.</p>
+              <p>Note:</p>
+              <p>- Make sure to connect the components as described above and use the correct pins on the Arduino. Double-check the pinout of your specific DHT sensor and ESP8266 module if they differ.</p>
+              <p>- Additionally, you may need to install the necessary libraries and write the Arduino code to read data from the DHT sensor, transmit it via the ESP8266 module, and send it to a cloud platform or web server. The specifics of the code may vary depending on your chosen cloud platform and programming preferences.</p>
+              
+              <h3>Code</h3>
+
+              <div class="portfolio-info">
+                <p>    #include <DHT.h></p>
+                    <p>       #include <ESP8266WiFi.h></p>
+                        <p>      #include <WiFiClient.h></p>
+                        <p>        #include <ThingSpeak.h></p>
+                            <p>       // Define the DHT sensor and pin</p>
+                    <p>      #define DHTPIN 2 // Digital pin connected to the DHT sensor</p>
+                    <p>       #define DHTTYPE DHT22 // Change to DHT11 if you're using that sensor</p>
+                    <p>        // Replace with your network credentials</p>
+                    <p>      const char* ssid = "YourSSID";</p>
+                    <p>        const char* password = "YourPassword";</p>
+                    <p>        // Replace with your ThingSpeak channel details</p>
+                    <p>       char* thingSpeakApiKey = "YourAPIKey";</p>
+                    <p>       const char* server = "api.thingspeak.com";</p>
+                    <p>       const char* apiPath = "/update";</p>
+                    <p>       DHT dht(DHTPIN, DHTTYPE);</p>
+                    <p>       void setup() {</p>
+                        <p>       Serial.begin(115200);</p>
+                     <p>       delay(10);</p>
+                     <p>       // Connect to Wi-Fi</p>
+                     <p>       WiFi.begin(ssid, password);</p>
+                     <p>     while (WiFi.status() != WL_CONNECTED) {</p>
+                        <p>        Serial.println("Connecting to WiFi...");</p>
+                     <p>       }</p>
+                     <p>      Serial.println("Connected to WiFi");</p>
+                     <p>      dht.begin();</p>
+                     <p>      }</p>
+                    <p>        void loop() {</p>
+                        <p>        float humidity = dht.readHumidity();</p>
+                     <p>        float temperature = dht.readTemperature();</p>
+                     <p>        if (isnan(humidity) || isnan(temperature)) {</p>
+                        <p>        Serial.println("Failed to read from DHT sensor!");</p>
+                     <p>        return;</p>
+                     <p>        }</p>
+                     <p>         Serial.print("Temperature: ");</p>
+                     <p>        Serial.print(temperature);</p>
+                     <p>        Serial.print(" °C\t");</p>
+                     <p>        Serial.print("Humidity: ");</p>
+                     <p>        Serial.print(humidity);</p>
+                     <p>        Serial.println(" %");</p>
+                     <p>       // Send data to ThingSpeak</p>
+                     <p>       WiFiClient client;</p>
+                     <p>       if (client.connect(server, 80)) {</p>
+                        <p>       String postStr = String("api_key=") + thingSpeakApiKe</p>y;
+                     <p>      postStr += "&field1=" + String(temperature);</p>
+                     <p>      postStr += "&field2=" + String(humidity);</p>
+                     <p>     postStr += "\r\n\r\n";</p>
+                     <p>     client.print("POST " + String(apiPath) + " HTTP/1.1\r\n");</p>
+                     <p>    client.print("Host: " + String(server) + "\r\n");</p>
+                     <p>     client.print("Content-Type: application/x-www-form-urlencoded\r\n");</p>
+                     <p>   client.print("Content-Length: " + String(postStr.length()) + "\r\n\r\n");</p>
+                     <p>   client.print(postStr);</p>
+                     <p>    Serial.println("Data sent to ThingSpeak");</p>
+                     <p>  }</p>
+                     <p> client.stop();</p>
+                     <p> // Update every 15 minutes (adjust as needed)</p>
+                     <p> delay(900000);</p>
+                    <p>}</p>
+                    
+              </div>
+                                           
+              <p> Before uploading this code to your Arduino board, make sure to:</p>
+              <p> 1. Replace `"YourSSID"` and `"YourPassword"` with your Wi-Fi network credentials.</p>
+              <p> 2. Replace `"YourAPIKey"` with your ThingSpeak API key.</p>
+              <p> 3. Install the required libraries (DHT sensor library, ESP8266WiFi library, and ThingSpeak library) through the Arduino IDE's Library Manager.</p>
+              <p> Once uploaded, your Arduino will read temperature and humidity data from the DHT sensor, send it to ThingSpeak, and repeat the process every 15 minutes (adjust the delay as needed).You can then create charts or visualize this data on your ThingSpeak channel's dashboard.</p>
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

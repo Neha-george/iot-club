@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/sls.png" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>IoT Light Control System
+
+            </h2>
+              <h3>Introduction</h3>
+              <p>     
+                Create an IoT system that allows you to remotely control a light or LED using a web or mobile app. You'll be able to turn the light on and off from anywhere with an internet connection.
+                </p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino board (e.g., Arduino Uno)
+            </p>
+              <p>Wi-Fi module (e.g., ESP8266 or ESP32)
+
+            </p>
+              <p>Relay module (for controlling the light)
+
+            </p>
+              <p>Breadboard and jumper wires
+
+            </p>
+              <p> Light bulb or LED </p>
+              <p> Power source for Arduino (USB or battery)</p>
+
+              
+              
+
+              <h3>Project Steps</h3>
+              
+              <p> 1. Connect the Relay Module:</p>
+              <p>- Connect the VCC and GND pins of the relay module to the appropriate pins on the Arduino.</p>
+              <p> - Connect the IN1 (input) pin of the relay module to a digital pin on the Arduino (e.g., D2).</p>
+              <p>2. Connect the Light Source:</p>
+              <p> - Connect the live wire of the light bulb (or LED) to the Common (COM) terminal of the relay module.</p>
+              <p> - Connect the neutral wire of the light bulb to the neutral line.</p>
+              <p>3. Arduino Programming:</p>
+              <p>- Write Arduino code to control the relay module based on commands received from the WiFi module.</p>
+              <p>- Set up Wi-Fi connectivity using the Wi-Fi module.</p>
+              <p>4. Web/Mobile App Development:</p>
+              <p> - Develop a simple web or mobile app to send commands to the Arduino and control the light.</p>
+              <p> - Implement an on/off switch or button.</p>
+              <p>5. Remote Access:</p>
+              <p> - Ensure the web/mobile app is accessible from anywhere with an internet connection.</p>
+              <p> - Users can control the light remotely.</p>
+              <h3>Circuit Connections:</h3>
+              <p>1. Connect the Relay Module:</p>
+              <p>- Connect the VCC pin of the relay module to the 5V output on the Arduino.</p>
+              <p> - Connect the GND pin of the relay module to one of the GND pins on the Arduino.</p>
+              <p> - Connect the IN1 (input) pin of the relay module to a digital pin on the Arduino (e.g., D2).</p>
+              <p>2. Connect the Light Source:</p>
+              <p> - Connect one terminal of the light bulb (or LED) to the Common (COM) terminal of the relay module.</p>
+              <p>- Connect the other terminal of the light bulb to a suitable power source (e.g., the live wire from a wall socket).</p>
+              <p> - Connect the neutral wire from the power source to the neutral line.</p>
+              <p>3. Connect the Wi-Fi Module (ESP8266):</p>
+              <p>- Connect the VCC pin of the ESP8266 module to the 3.3V output on the Arduino.</p>
+              <p>- Connect the GND pin of the ESP8266 module to one of the GND pins on the Arduino.</p>
+              <p> - Connect the TX (transmit) pin of the ESP8266 module to a digital pin on the Arduino (e.g.,D10).</p>
+              <p> - Connect the RX (receive) pin of the ESP8266 module to a digital pin on the Arduino (e.g.,D11).</p>
+              <p>4. Power Supply:</p>
+              <p> - Power the Arduino with a USB cable or an external power source.</p>
+              <p>Note:</p>
+              <p>- Ensure that you connect the components as described above and use the correct pins on the Arduino.</p>
+              <p>- Double-check the pinout and wiring of your specific relay module and ESP8266 module if they differ.</p>
+              <p>- Additionally, you'll need to write Arduino code to control the relay module based on commands received from the Wi-Fi module and set up Wi-Fi connectivity. The specifics of the code may vary depending on your chosen Wi-Fi module and programming preferences.
+                </p>
+              <h3>Code</h3>
+
+              <div class="portfolio-info">
+                <p> #include <ESP8266WiFi.h></p>
+                    <p>   // Replace with your network credentials</p>
+                    <p>   const char* ssid = "YourSSID";</p>
+                    <p>   const char* password = "YourPassword";</p>
+                    <p>     // Create an instance of the ESP8266WebServer class</p>
+                    <p>    ESP8266WebServer server(80);</p>
+                    <p>    // Define the GPIO pin connected to the relay module</p>
+                    <p>    const int relayPin = 2; // Change to the appropriate pin</p>
+                    <p>   void setup() {</p>
+                        <p>    Serial.begin(115200);</p>
+                    
+                        <p>    // Connect to Wi-Fi</p>
+                        <p>   WiFi.begin(ssid, password);</p>
+                        <p>    while (WiFi.status() != WL_CONNECTED) {</p>
+                            <p>    delay(1000);</p>
+                            <p>    Serial.println("Connecting to WiFi...");</p>
+                            <p>    }</p>
+                            <p>    Serial.println("Connected to WiFi");</p>
+                     <p>    // Set the relay pin as an OUTPUT</p>
+                     <p>    pinMode(relayPin, OUTPUT);</p>
+                     <p>    digitalWrite(relayPin, LOW); // Ensure the light is initially turned off</p>
+                     <p>    // Define the web server routes</p>
+                     <p>    server.on("/", HTTP_GET, handleRoot);</p>
+                     <p>     server.on("/on", HTTP_GET, handleOn);</p>
+                     <p>    server.on("/off", HTTP_GET, handleOff);</p>
+                     <p>    // Start the server</p>
+                     <p>    server.begin();</p>
+                     <p>   }</p>
+                     <p>   void loop() {</p>
+                        <p>    // Handle incoming client requests</p>
+                        <p>    server.handleClient();</p>
+                        <p>   }</p>
+                        <p>   // Handle root URL (main page)</p>
+                        <p>   void handleRoot() {</p>
+                            <p>     String html = "<html><body>";</p>
+                                <p>    html += "<h1>IoT Light Control</h1>";</p>
+                                <p>     html += "<p><a href='/on'>Turn On</a></p>";</p>
+                                <p>     html += "<p><a href='/off'>Turn Off</a></p>";</p>
+                                <p>    html += "</body></html>";</p>
+                                <p>     server.send(200, "text/html", html);</p>
+                                <p>    }</p>
+                                <p>   // Handle "Turn On" request</p>
+                                <p>   void handleOn() {</p>
+                                    <p>    digitalWrite(relayPin, HIGH); // Turn the light on</p>
+                                    <p>    server.send(200, "text/plain", "Light turned on");</p>
+                                    <p>    }</p>
+                    <p>    // Handle "Turn Off" request</p>
+                    <p>    void handleOff() {</p>
+                        <p>     digitalWrite(relayPin, LOW); // Turn the light off</p>
+                        <p>       server.send(200, "text/plain", "Light turned off");</p>
+                     <p>     }</p>
+                    
+                    
+              </div>
+                                           
+              <p>  Before uploading this code to your Arduino board, make sure to:</p>
+              <p>1. Replace `"YourSSID"` and `"YourPassword"` with your Wi-Fi network credentials.</p>
+              <p>2. Adjust the `relayPin` variable to the appropriate GPIO pin connected to the relay module.</p>
+              <p>Once uploaded, open the Arduino Serial Monitor to get the ESP8266's IP address. Then, enter this IP address into your web browser to access the web interface, where you can control the light by clicking "Turn On" and "Turn Off."
+                </p>
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

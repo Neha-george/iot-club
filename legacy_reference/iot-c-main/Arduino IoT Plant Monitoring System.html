@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/pms1.jpg" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>Arduino IoT Plant Monitoring System</h2>
+              <h3>Introduction</h3>
+              <p>     
+                The Arduino IoT Plant Monitoring System is a project designed to monitor and control the environment of your plants using various sensors and the Blynk IoT platform. This system includes the following features:              
+              </p>
+              <p>- Monitoring temperature and humidity with a DHT11 sensor.</p>
+              <p>- Measuring soil moisture with a soil moisture sensor.</p>
+              <p>- Detecting motion using a PIR (Passive Infrared) motion sensor.</p>
+              <p>- Controlling a relay to turn on/off a connected device (e.g., a water pump or light).</p>
+              <p>- User interface via the Blynk mobile app to visualize data and control the system remotely.</p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino board (e.g., ESP8266)</p>
+              <p>DHT11 Temperature and Humidity Sensor</p>
+              <p>Soil Moisture Sensor</p>
+              <p>PIR (Passive Infrared) Motion Sensor</p>
+              <p>Relay module</p>
+              <p>Liquid Crystal Display (LCD) with I2C interface</p>
+              <p>Push button</p>
+              <p>Jumper wires</p>
+              <p>Breadboard (optional)</p>
+              
+
+              <h3>Pin Connections</h3>
+              
+              <p>- Relay: D3</p>
+              <p>- Button: D7</p>
+              <p>- Soil Moisture: A0</p>
+              <p>- PIR Motion Sensor: D5</p>
+              <p>- I2C SDA: D2</p>
+              <p>- I2C SCL: D1</p>
+              <p>- DHT11 Temperature Sensor: D4</p>
+
+              <h3>Libraries Used</h3>
+
+              <p>- [LiquidCrystal_I2C](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library): Used for interfacing with the I2C LCD.</p>
+              <p>- [ESP8266WiFi](https://github.com/esp8266/Arduino): Enables WiFi connectivity for the ESP8266 board.</p>
+              <p>- [BlynkSimpleEsp8266](https://github.com/blynkkk/blynk-library): Provides Blynk integration for IoT communication.</p>
+              <p>- [DHT](https://github.com/adafruit/DHT-sensor-library): A library for the DHT11 temperature and humidity sensor.</p>
+
+              <h3>Setup</h3>
+
+              <p>1. Connect the components following the specified pin connections.</p>
+              <p>2. Install the required libraries using the Arduino IDE.</p>
+              <p>3. Replace placeholders in the code (`auth`, `ssid`, `pass`) with your Blynk authentication token and WiFi credentials.</p>
+              <p>4. Upload the code to your Arduino board.</p>
+              <p>5. Ensure that the power source for the relay module and sensors is connected.</p>
+
+              <h3>How It Works</h3>
+
+              <p>1. The system initializes and establishes a connection to the Blynk server and sensors.</p>
+              <p>2. Temperature and humidity data are read from the DHT11 sensor and displayed on the LCD.</p>
+              <p>3. Soil moisture data is read from the soil moisture sensor and displayed on the LCD.</p>
+              <p>4. The PIR motion sensor detects motion and alerts the user via the Blynk app.</p>
+              <p>5. A physical push button allows manual control of the relay to turn a connected device on/off.</p>
+              <p>6. The Blynk app provides a user-friendly interface to monitor sensor data and control the relay remotely.</p>
+
+              <h3>Blynk Mobile App Interface</h3>
+
+              <p>1. Toggle Motion Detection: Use a button widget (V6) on the Blynk app to toggle motion detection on/off.</p>
+              <p>2. Toggle Relay: Use a button widget (V12) to control the relay's state.</p>
+              <p>3 Temperature Display: Sensor data (temperature and humidity) is displayed on value display widgets (V0 and V1).</p>
+              <p>4. Soil Moisture Display: Soil moisture data is displayed on a value display widget (V3).</p>
+              <p>5. Motion Alert: A LED widget (V5) indicates motion detection.</p>
+            <div class="portfolio-info">
+              <h3>Arduino code</h3>
+              <p>/* Connections</p>
+              <p>Relay. D3</p>
+              <p>Btn.   D7</p>
+              <p>Soil.  A0</p>
+              <p>PIR.   D5</p>
+              <p>SDA.   D2</p>
+              <p>SCL.   D1</p>
+              <p>Temp.  D4</p>
+              <p>*/
+
+                <p>// Include the library files</p>
+                <p>#include <LiquidCrystal_I2C.h></p>
+                  <p>#define BLYNK_PRINT Serial</p>
+                  <p>#include <ESP8266WiFi.h></p>
+                    <p>#include <BlynkSimpleEsp8266.h></p>
+                      <p>#include <DHT.h></p>
+
+                        <p>// Initialize the LCD display</p>
+                        <p>LiquidCrystal_I2C lcd(0x3F, 16, 2);</p>
+
+                        <p>char auth[] = "YOUR_AUTH_TOKEN";  // Enter your Blynk Auth token</p>
+                        <p>char ssid[] = "YOUR_WIFI_SSID";   // Enter your WIFI SSID</p>
+                        <p>char pass[] = "YOUR_WIFI_PASSWORD"; // Enter your WIFI Password</p>
+
+                        <p>DHT dht(D4, DHT11); // (DHT sensor pin, sensor type)  D4 DHT11 Temperature Sensor</p>
+                        <p>BlynkTimer timer;</p>
+
+                        <p>// Define component pins</p>
+                        <p>#define SOIL_SENSOR A0   // A0 Soil Moisture Sensor</p>
+                        <p>#define PIR_SENSOR  D5   // D5 PIR Motion Sensor</p>
+                        <p>int pirToggleValue;</p>
+
+                        <p>void checkPhysicalButton();</p>
+                        <p>int relay1State = LOW;</p>
+                        <p>int pushButton1State = HIGH;</p>
+                        <p>#define RELAY_PIN_1       D3   // D3 Relay</p>
+                        <p>#define PUSH_BUTTON_1     D7   // D7 Button</p>
+                        <p>#define VPIN_BUTTON_1     V12 </p>
+
+                        <p>// Create variables for temperature and pressure</p>
+                        <p>double temperature, pressure;</p>
+                        <p>char status;</p>
+
+                        <p>void setup() {</p>
+                          <p>  Serial.begin(9600);</p>
+                          <p>  lcd.begin();</p>
+                          <p>  lcd.backlight();</p>
+                          <p>  pinMode(PIR_SENSOR, INPUT);</p>
+
+                          <p>  pinMode(RELAY_PIN_1, OUTPUT);</p>
+                          <p>  digitalWrite(RELAY_PIN_1, LOW);</p>
+                          <p>  pinMode(PUSH_BUTTON_1, INPUT_PULLUP);</p>
+                          <p>  digitalWrite(RELAY_PIN_1, relay1State);</p>
+
+                          <p> Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);</p>
+                          <p>  dht.begin();</p>
+
+                          <p> lcd.setCursor(0, 0);</p>
+                          <p> lcd.print("  Initializing  ");</p>
+                          <p> for (int a = 5; a <= 10; a++) {</p>
+                            <p>   lcd.setCursor(a, 1);</p>
+                            <p>    lcd.print(".");</p>
+                            <p>    delay(500);</p>
+                            <p>  }</p>
+                            <p> lcd.clear();</p>
+                            <p>  lcd.setCursor(11, 1);</p>
+                            <p>  lcd.print("W:OFF");</p>
+
+                            <p> // Call the function</p>
+                            <p> timer.setInterval(100L, readSoilMoisture);</p>
+                            <p> timer.setInterval(100L, readDHT11Sensor);</p>
+                            <p>  timer.setInterval(500L, checkPhysicalButton);</p>
+                            <p>}</p>
+
+                            <p>// Get the DHT11 sensor values</p>
+                            <p>void readDHT11Sensor() {</p>
+                              <p> float humidity = dht.readHumidity();</p>
+                              <p> float temp = dht.readTemperature();</p>
+
+                              <p> if (isnan(humidity) || isnan(temp)) {</p>
+                                <p>   Serial.println("Failed to read from DHT sensor!");</p>
+                                <p>   return;</p>
+                                <p> }</p>
+                                <p> Blynk.virtualWrite(V0, temp);</p>
+                                <p> Blynk.virtualWrite(V1, humidity);</p>
+
+                                <p> lcd.setCursor(0, 0);</p>
+                                <p> lcd.print("T:");</p>
+                                <p> lcd.print(temp);</p>
+
+                                <p>  lcd.setCursor(8, 0);</p>
+                                <p>  lcd.print("H:");</p>
+                                <p>  lcd.print(humidity);</p>
+                                <p>}</p>
+
+                                <p>// Get the soil moisture values</p>
+                                <p>void readSoilMoisture() {</p>
+                                  <p> int soilValue = analogRead(SOIL_SENSOR);</p>
+                                  <p> soilValue = map(soilValue, 0, 1024, 0, 100);</p>
+                                  <p> soilValue = (soilValue - 100) * -1;</p>
+
+                                  <p>Blynk.virtualWrite(V3, soilValue);</p>
+                                  <p> lcd.setCursor(0, 1);</p>
+                                  <p> lcd.print("S:");</p>
+                                  <p> lcd.print(soilValue);</p>
+                                  <p> lcd.print(" ");</p>
+                                  <p>}</p>
+
+                                  <p>// Get the PIR sensor values</p>
+                                  <p>void readPIRSensor() {</p>
+                                    <p>  bool pirValue = digitalRead(PIR_SENSOR);</p>
+                                    <p>  if (pirValue) {</p>
+                                      <p>  Blynk.logEvent("pirMotion", "WARNING! Motion Detected!"); // Enter your Event Name</p>
+                                      <p>   WidgetLED pirLED(V5);</p>
+                                      <p>   pirLED.on();</p>
+                                      <p>  } else {</p>
+                                        <p>    WidgetLED pirLED(V5);</p>
+                                        <p>    pirLED.off();</p>
+                                        <p> }</p>
+                                        <p>}</p>
+
+                                        <p>BLYNK_WRITE(V6) {</p>
+                                          <p>  pirToggleValue = param.asInt();</p>
+                                          <p>}</p>
+
+                                          <p>BLYNK_CONNECTED() {</p>
+                                            <p> // Request the latest state from the server</p>
+                                            <p> Blynk.syncVirtual(VPIN_BUTTON_1);</p>
+                                            <p>}</p>
+
+                                            <p>BLYNK_WRITE(VPIN_BUTTON_1) {</p>
+                                              <p>  relay1State = param.asInt();</p>
+                                              <p> digitalWrite(RELAY_PIN_1, relay1State);</p>
+                                              <p>}</p>
+
+                                              <p>void checkPhysicalButton() {</p>
+                                                <p> if (digitalRead(PUSH_BUTTON_1) == LOW) {</p>
+                                                  <p>   // pushButton1State is used to avoid sequential toggles</p>
+                                                  <p>   if (pushButton1State != LOW) {</p>
+                                                    <p>     // Toggle Relay state</p>
+                                                    <p>    relay1State = !relay1State;</p>
+                                                    <p>    digitalWrite(RELAY_PIN_1, relay1State);</p>
+                                                    <p>   // Update Button Widget</p>
+                                                    <p>     Blynk.virtualWrite(VPIN_BUTTON_1, relay1State);</p>
+                                                    <p>   }</p>
+                                                    <p>   pushButton1State = LOW;</p>
+                                                    <p> } else {</p>
+                                                      <p>   pushButton1State = HIGH;</p>
+                                                      <p> }</p>
+                                                      <p>}</p>
+
+                                                      <p>void loop() {</p>
+                                                        <p> if (pirToggleValue == 1) {</p>
+                                                          <p>   lcd.setCursor(5, 1);</p>
+                                                          <p>   lcd.print("M:ON ");</p>
+                                                          <p>   readPIRSensor();</p>
+                                                          <p> } else {</p>
+                                                            <p>    lcd.setCursor(5, 1);</p>
+                                                            <p>   lcd.print("M:OFF");</p>
+                                                            <p>   WidgetLED pirLED(V5);</p>
+                                                            <p>   pirLED.off();</p>
+                                                            <p> }</p>
+
+                                                            <p>  if (relay1State == HIGH) {</p>
+                                                              <p>    lcd.setCursor(11, 1);</p>
+                                                              <p>   lcd.print("W:ON ");</p>
+                                                              <p> } else if (relay1State == LOW) {</p>
+                                                                <p>   lcd.setCursor(11, 1);</p>
+                                                                <p>    lcd.print("W:OFF");</p>
+                                                                <p>  }</p>
+
+                                                                <p>  Blynk.run(); // Run the Blynk library</p>
+                                                                <p> timer.run(); // Run the Blynk timer</p>
+                                                                <p>}</p>
+                                                    </div>
+                                                      <h3>Troubleshooting</h3>
+
+                                                      <p>- Ensure that the wiring connections are accurate and secure.</p>
+                                                      <p>- Double-check the WiFi credentials and Blynk authentication token.</p>
+                                                      <p>- Monitor the Arduino IDE's serial monitor for debugging information.</p>
+
+                                                      <h3>Future Enhancements</h3>
+
+                                                      <p>This project can be expanded and improved in several ways:</p>
+
+                                                      <p>- Adding more sensors for additional environmental data (e.g., light intensity, pH level).</p>
+                                                      <p>- Implementing automatic plant care routines (e.g., watering based on soil moisture).</p>
+                                                      <p>- Integrating a camera for plant monitoring and image capture.</p>
+                                                      <p>- Creating a mobile app with custom controls and data visualization.</p>
+
+                                                      <h3>Conclusion</h3>
+
+                                                      <p>The Arduino IoT Plant Monitoring System provides an accessible way to monitor and control your plants' environment using sensors and the Blynk platform. By enhancing and customizing this project, you can create a comprehensive plant care system tailored to your specific needs.</p>
+
+
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

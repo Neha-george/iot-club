@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>iot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                  <img src="assets/img/portfolio/sd1.jpg" alt="">
+
+                
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="">
+            
+            <div class="portfolio-description">
+              <h2>SMART DUSTBIN</h2>
+              <h3>Introduction</h3>
+              <p>     
+                It is a DIY smart dustbin using Arduino, ultrasonic sensor, and a servo motor. After the recent covid-19 era, people are trying to adopt a more contact-less approach. Our smart dustbin uses one such approach.</p>
+              <h3>Components</h3>
+              <p>Before you start building your Arduino-based drone, make sure you have the following components:
+              </p>
+              <p>Arduino UNO</p>
+              <p>Ultrasonic sensor HC-SR04</p>
+              <p>SG-90 micro servo motor</p>
+              <p>Dustbin</p>
+              <p>Jumper wires</p>
+              <p>Battery</p>
+              
+
+              <h3>Circuit diagram</h3>
+              
+
+              <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                  <div class="swiper-wrapper align-items-center">
+    
+                      <img src="assets/img/portfolio/sd2.jpg" alt="">
+    
+                    
+    
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+              <h3>Working</h3>
+              <p>The smart dustbin utilizes an Ultrasonic sensor HC-SR04 for object detection in its proximity. Once an object is detected, the sensor sends a signal to the Arduino Uno. The Arduino processes this signal and subsequently sends a command to the Servomotor to open the top flap of the dustbin.</p>
+              <p>To customize the duration for which the flap remains open, you can easily adjust the code within the Arduino IDE. By making minor modifications to the code, you can change the open duration to your desired value. For instance, if you wish to have the flap open for a different duration, you can simply update the code accordingly.</p>
+              <h3>Code</h3>
+
+              <div class="portfolio-info">
+                <p>  #include <Servo.h>  // Include the servo library</p>
+
+                    <p>     Servo servo;        // Create a servo object</p>
+                    <p>      int trigPin = 5;    // Define the trigger pin for the ultrasonic sensor</p>
+                    <p>     int echoPin = 6;    // Define the echo pin for the ultrasonic sensor</p>
+                    <p>       int servoPin = 7;   // Define the pin for controlling the servo motor</p>
+                    <p>       int led = 10;       // Define an LED pin for reference</p>
+                    <p>        long duration, dist, average;  // Variables for distance measurements</p>
+                    <p>        long aver[3];       // Array for averaging</p>
+                    
+                    <p>         void setup() {</p>
+                        <p>          Serial.begin(9600);</p>
+                        <p>         servo.attach(servoPin);    // Attach the servo to its pin</p>
+                        <p>         pinMode(trigPin, OUTPUT);  // Set trigger pin as an output</p>
+                        <p>          pinMode(echoPin, INPUT);   // Set echo pin as an input</p></p>
+                        <p>          servo.write(0);            // Close cap on power on
+                            <p>           delay(100);</p>
+                      <p>           servo.detach();</p>
+                      <p>          pinMode(led, OUTPUT);       // Set the LED pin as an output</p>
+                      <p>       }</p>
+                    
+                      <p>      void measure() {</p>
+                        <p>         digitalWrite(led, HIGH);    // Turn on the LED as an indicator</p>
+                        <p>         digitalWrite(trigPin, LOW); // Set the trigger pin low</p>
+                        <p>        delayMicroseconds(5);       // Short delay</p>
+                        <p>         digitalWrite(trigPin, HIGH); // Set the trigger pin high</p>
+                        <p>           delayMicroseconds(15);      // Short delay</p>
+                      <p>        digitalWrite(trigPin, LOW);  // Set the trigger pin low again</p>
+                      <p>           pinMode(echoPin, INPUT);     // Set echo pin as an input</p>
+                      <p>           duration = pulseIn(echoPin, HIGH); // Measure the pulse duration</p>
+                      <p>           dist = (duration / 2) / 29.1;     // Calculate the distance</p>
+                      <p>         }</p>
+                    
+                      <p>         void loop() {</p>
+                        <p>           for (int i = 0; i <= 2; i++) {  // Take three distance measurements for averaging</p>
+                            <p>            measure();</p>
+                        <p>           aver[i] = dist;</p>
+                        <p>            delay(10);   // Delay between measurements</p>
+                        <p>          }</p>
+                        <p>          dist = (aver[0] + aver[1] + aver[2]) / 3; // Calculate the average distance</p>
+                    
+                        <p>         if (dist < 50) { // Change distance threshold as per your need</p>
+                            <p>          servo.attach(servoPin); // Attach the servo</p>
+                            <p>          delay(1);</p>
+                            <p>           servo.write(0); // Open the flap</p>
+                            <p>          delay(3000);    // Keep the flap open for 3 seconds</p>
+                            <p>          servo.write(150); // Close the flap</p>
+                            <p>          delay(1000);    // Additional delay for flap closure</p>
+                            <p>         servo.detach();  // Detach the servo</p>
+                            <p>         }</p>
+                            <p>        Serial.print(dist);</p>
+                            <p>      }</p>
+                    
+
+              </div>
+                                           
+
+
+
+              
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
