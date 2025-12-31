@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
     return (
@@ -7,7 +8,7 @@ export default function Navbar() {
                 <a href="http://localhost:5173" className="flex items-center gap-3 group">
                     <div className="relative w-8 h-8 group-hover:scale-110 transition-transform duration-300">
                         <div className="absolute inset-0 bg-neon-cyan/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <img src="/src/assets/logo.png" alt="IoT Logo" className="w-full h-full object-cover relative z-10" />
+                        <img src={logo} alt="IoT Logo" className="w-full h-full object-cover relative z-10" />
                     </div>
                     <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-neon-cyan transition-colors">
                         IoT Club

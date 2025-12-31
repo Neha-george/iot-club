@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
                 try {
                     const token = await user.getIdTokenResult();
                     // Fallback loose check if claim not set yet for demo convenience
-                    if (token.claims.admin || user.email === 'admin@iotclub.com' || user.email?.includes('admin')) {
+                    if (token.claims.admin || user.email === 'admin@iotclub.com' || user.email === 'admin@maceiot.com') {
                         setIsAdmin(true);
                     } else {
                         setIsAdmin(false);

@@ -91,7 +91,7 @@ const HomePage = () => (
                     Access our extensive library of sensors, microcontrollers, and tools.
                     Check availability and book items instantly.
                 </p>
-                <a href="/lending" className="inline-block px-8 py-4 bg-neon-cyan text-black font-bold rounded-full hover:shadow-[0_0_30px_rgba(0,243,255,0.6)] transition-all transform hover:-translate-y-1">
+                <a href="http://localhost:5175" className="inline-block px-8 py-4 bg-neon-cyan text-black font-bold rounded-full hover:shadow-[0_0_30px_rgba(0,243,255,0.6)] transition-all transform hover:-translate-y-1">
                     Launch Component Lending System
                 </a>
             </div>

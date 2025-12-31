@@ -47,9 +47,9 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen pt-24 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-colors duration-300">
-            <div className="max-w-md mx-auto px-4">
-                <div className="bg-white dark:bg-navy-900/80 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xl backdrop-blur-sm relative overflow-hidden group transition-colors duration-300">
+        <div className="min-h-screen pt-24 pb-12 flex items-center justify-center p-4 bg-black text-white">
+            <div className="max-w-md w-full mx-auto px-4">
+                <div className="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] backdrop-blur-sm relative overflow-hidden group">
                     <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/10 to-neon-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                     <h2 className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-cyan mb-8 tracking-tight">
@@ -71,6 +71,7 @@ export default function Login() {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             placeholder="student@example.com"
+                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-600 focus:border-neon-cyan"
                         />
                         <Input
                             label="Password"
@@ -79,9 +80,10 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             placeholder="••••••••"
+                            className="bg-black/50 border-gray-700 text-white placeholder:text-gray-600 focus:border-neon-cyan"
                         />
 
-                        <Button type="submit" className="w-full shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-shadow bg-neon-cyan text-black hover:bg-neon-cyan/80" disabled={loading}>
+                        <Button type="submit" className="w-full shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-shadow bg-neon-cyan text-black hover:bg-neon-cyan/80 font-bold" disabled={loading}>
                             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sign In'}
                         </Button>
                     </form>
@@ -92,13 +94,13 @@ export default function Login() {
                                 <div className="w-full border-t border-gray-700"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-black text-slate-500">Or continue with</span>
+                                <span className="px-2 bg-gray-900 text-gray-400">Or continue with</span>
                             </div>
                         </div>
 
                         <Button
                             variant="outline"
-                            className="w-full mt-6 border-gray-600 hover:bg-gray-800 hover:text-white transition-colors"
+                            className="w-full mt-6 border-gray-600 bg-transparent text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
                             onClick={handleGoogleLogin}
                             disabled={loading}
                         >
@@ -106,7 +108,7 @@ export default function Login() {
                         </Button>
                     </div>
 
-                    <div className="mt-6 text-center text-sm text-slate-400 relative z-10">
+                    <div className="mt-6 text-center text-sm text-gray-400 relative z-10">
                         Don't have an account?{' '}
                         <Link to="/register" className="text-neon-cyan hover:text-neon-cyan/80 font-medium hover:underline">
                             Sign up

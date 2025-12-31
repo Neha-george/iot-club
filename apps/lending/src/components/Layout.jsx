@@ -2,10 +2,11 @@ import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import { ShoppingCart, LogOut, User, Settings, Cpu } from 'lucide-react';
+import { ShoppingCart, LogOut, User, Settings } from 'lucide-react';
 import { Button } from './ui/Button';
 import Cart from './Cart';
 import Background from './ui/Background';
+import logo from '../assets/logo.png';
 
 export default function Layout() {
     const { currentUser, logout, isAdmin } = useAuth();
@@ -20,9 +21,14 @@ export default function Layout() {
             <header className="sticky top-0 z-40 w-full border-b border-navy-700 bg-navy-900/80 backdrop-blur">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-6">
-                        <Link to="/" className="flex items-center gap-2 text-cyan-400 font-mono font-bold text-xl">
-                            <Cpu className="w-6 h-6" />
-                            <span>IoT_CLUB</span>
+                        <Link to="/" className="flex items-center gap-3 group">
+                            <div className="relative w-8 h-8 group-hover:scale-110 transition-transform duration-300">
+                                <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <img src={logo} alt="IoT Club" className="w-full h-full object-cover relative z-10" />
+                            </div>
+                            <span className="font-display font-bold text-xl tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+                                IoT Club
+                            </span>
                         </Link>
                         <a href="http://localhost:5173" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
                             Back to Home
