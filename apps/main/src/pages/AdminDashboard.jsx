@@ -70,7 +70,7 @@ export default function AdminDashboard() {
         try {
             // Simplified logic: fetching all members to find max ID is inefficient but works for small scale v1
             const snapshot = await getDocs(collection(db, 'members'));
-            let maxId = 25000;
+            let maxId = 26001;
             snapshot.forEach(doc => {
                 const mid = doc.data().membershipId;
                 if (mid && mid.startsWith('IOT')) {
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
             return `IOT${maxId + 1}`;
         } catch (e) {
             console.error(e);
-            return `IOT${Math.floor(25001 + Math.random() * 9000)}`;
+            return `IOT${Math.floor(26001 + Math.random() * 9000)}`; // Safe fallback
         }
     };
 
@@ -242,46 +242,55 @@ export default function AdminDashboard() {
                 )
             ) : (
                 /* ALL MEMBERS TABLE */
-                <div className="overflow-x-auto bg-gray-50 dark:bg-dark-card rounded-xl border border-gray-200 dark:border-dark-border">
-                    <table className="w-full text-left text-sm">
-                        <thead className="bg-gray-100 dark:bg-black/20 text-gray-500 dark:text-gray-400 uppercase font-medium">
-                            <tr>
-                                <th className="px-6 py-4">Name</th>
-                                <th className="px-6 py-4">Batch</th>
-                                <th className="px-6 py-4">Admission No</th>
-                                <th className="px-6 py-4">Contact</th>
-                                <th className="px-6 py-4">Mid</th>
-                                <th className="px-6 py-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-dark-border">
-                            {requests.map(member => (
-                                <tr key={member.id} className="hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-                                    <td className="px-6 py-4 font-medium">{member.fullName}</td>
-                                    <td className="px-6 py-4">{member.batch || member.department}</td>
-                                    <td className="px-6 py-4">{member.admissionNo || member.rollNo}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex flex-col">
-                                            <span className="text-xs text-gray-500">{member.email}</span>
-                                            <span className="text-xs text-gray-400">{member.phone}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 font-mono text-neon-cyan">
-                                        {member.membershipId || '-'}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${member.status === 'approved' ? 'bg-green-500/10 text-green-500' :
+                <div className="space-y-4">
+                    <div className="bg-white dark:bg-dark-card p-4 rounded-xl border border-gray-200 dark:border-dark-border flex justify-between items-center">
+                        <span className="font-medium text-gray-500 dark:text-gray-400">Total Members</span>
+                        <span className="text-2xl font-bold font-display text-neon-cyan">{requests.length}</span>
+                    </div>
+
+                    <div className="overflow-x-auto bg-gray-50 dark:bg-dark-card rounded-xl border border-gray-200 dark:border-dark-border">
+                        <table className="w-full text-left text-sm">
+                            <thead className="bg-gray-100 dark:bg-black/20 text-gray-500 dark:text-gray-400 uppercase font-medium">
+                                <tr>
+                                    <th className="px-6 py-4">Sl No</th>
+                                    <th className="px-6 py-4">Name</th>
+                                    <th className="px-6 py-4">Batch</th>
+                                    <th className="px-6 py-4">Admission No</th>
+                                    <th className="px-6 py-4">Contact</th>
+                                    <th className="px-6 py-4">Mid</th>
+                                    <th className="px-6 py-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200 dark:divide-dark-border">
+                                {requests.map((member, index) => (
+                                    <tr key={member.id} className="hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+                                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 font-mono">{index + 1}</td>
+                                        <td className="px-6 py-4 font-medium">{member.fullName}</td>
+                                        <td className="px-6 py-4">{member.batch || member.department}</td>
+                                        <td className="px-6 py-4">{member.admissionNo || member.rollNo}</td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex flex-col">
+                                                <span className="text-xs text-gray-500">{member.email}</span>
+                                                <span className="text-xs text-gray-400">{member.phone}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 font-mono text-neon-cyan">
+                                            {member.membershipId || '-'}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${member.status === 'approved' ? 'bg-green-500/10 text-green-500' :
                                                 member.status === 'rejected' ? 'bg-red-500/10 text-red-500' :
                                                     'bg-yellow-500/10 text-yellow-500'
-                                            }`}>
-                                            {member.status.replace('_', ' ')}
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {requests.length === 0 && <div className="p-8 text-center text-gray-500">No members found.</div>}
+                                                }`}>
+                                                {member.status.replace('_', ' ')}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {requests.length === 0 && <div className="p-8 text-center text-gray-500">No members found.</div>}
+                    </div>
                 </div>
             )}
         </div>
