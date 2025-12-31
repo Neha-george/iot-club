@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { QrCode, CreditCard, Loader2, AlertCircle, ArrowRight, Upload } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import qrCode from '../assets/qr.jpeg';
 
 // Cloudinary Config
 // Cloudinary Config
@@ -134,10 +135,9 @@ export default function Payment() {
                 {/* Left Side: QR Code & Instructions */}
                 <div className="md:w-1/2 bg-gradient-to-br from-neon-purple/10 to-neon-cyan/10 p-8 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/5">
                     <div className="bg-white p-4 rounded-xl shadow-lg mb-6">
-                        {/* Placeholder QR Code - In production replace with real QR */}
-                        <div className="w-48 h-48 bg-gray-200 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400">
-                            <QrCode className="w-16 h-16 text-gray-500" />
-                            <span className="sr-only">Access via UPI App</span>
+                        {/* Real QR Code */}
+                        <div className="w-80 h-80 bg-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-2">
+                            <img src={qrCode} alt="UPI QR Code" className="w-full h-full object-contain" />
                         </div>
                     </div>
 

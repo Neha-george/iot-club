@@ -24,7 +24,7 @@ import Navbar from './components/Navbar';
 function App() {
     return (
         <div className="min-h-screen bg-dark-bg text-white font-sans selection:bg-neon-cyan selection:text-black">
-            <Router>
+            <Router basename={import.meta.env.BASE_URL}>
                 <Navbar />
                 <AnimatedRoutes />
             </Router>

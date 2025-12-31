@@ -25,6 +25,15 @@ This project is organized as a monorepo using npm workspaces:
     ```
 2.  Fill in your Firebase and Cloudinary credentials in the `.env` file.
     *(Note: For the Membership app, you need `VITE_CLOUDINARY_CLOUD_NAME` and `VITE_CLOUDINARY_UPLOAD_PRESET`)*
+3.  **EmailJS Setup** (For Automatic Emails):
+    - Create an account at [EmailJS](https://www.emailjs.com).
+    - Create a Service (Gmail) and Template.
+    - Add the following keys to `.env`:
+      ```env
+      VITE_EMAILJS_SERVICE_ID=your_service_id
+      VITE_EMAILJS_TEMPLATE_ID=your_template_id
+      VITE_EMAILJS_PUBLIC_KEY=your_public_key
+      ```
 
 ### Installation
 

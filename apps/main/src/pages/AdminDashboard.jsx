@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { collection, query, where, getDocs, updateDoc, doc, orderBy, limit } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { Check, X, ExternalLink, Loader2, Image as ImageIcon } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function AdminDashboard() {
     const [requests, setRequests] = useState([]);
@@ -96,11 +97,38 @@ export default function AdminDashboard() {
                 approvedAt: new Date()
             });
 
-            // Simulate Email Sending
-            console.log(`[EMAIL SIMULATION] Sending membership confirmed email to ${member.email}`);
-            console.log(`[EMAIL CONTENT] Subject: Welcome to IoT Club! Name: ${member.fullName}, ID: ${newId}.`);
+            // EmailJS Integration
+            try {
+                const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+                const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+                const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-            alert(`Approved ${member.fullName}! Assigned ID: ${newId}.\n\n(Simulated) Email sent to ${member.email}`);
+                if (serviceId && templateId && publicKey) {
+                    await emailjs.send(
+                        serviceId,
+                        templateId,
+                        {
+                            to_name: member.fullName,
+                            to_email: member.email,
+                            membership_id: newId,
+                            designation: "Member",
+                            year: new Date().getFullYear()
+                        },
+                        publicKey
+                    );
+                    alert(`Approved ${member.fullName}! Assigned ID: ${newId}.\n\nEmail Sent Successfully!`);
+                } else {
+                    console.warn("EmailJS keys missing. Falling back to mailto.");
+                    // Fallback to Mailto
+                    const subject = encodeURIComponent("Welcome to IoT Club - Membership Approved");
+                    const body = encodeURIComponent(`Dear ${member.fullName},\n\nCongratulations! Your membership request for the IoT Club has been approved.\n\nYour Membership ID is: ${newId}\n\nYou can now login to the Lending System using this ID.\n\nRegards,\nIoT Club Team`);
+                    window.open(`mailto:${member.email}?subject=${subject}&body=${body}`, '_blank');
+                    alert(`Approved ${member.fullName}! Assigned ID: ${newId}.\n\n(EmailJS not configured - Opened Mail App)`);
+                }
+            } catch (emailError) {
+                console.error("EmailJS Failed:", emailError);
+                alert(`Approved ${member.fullName}! Assigned ID: ${newId}.\n\nWarning: Automatic email failed. Check console.`);
+            }
 
             // Remove from local list if in pending view
             if (activeTab === 'pending') {

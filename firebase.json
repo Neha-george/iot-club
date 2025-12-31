@@ -6,38 +6,28 @@
     "functions": {
         "source": "functions"
     },
-    "hosting": [
-        {
-            "target": "lending",
-            "public": "apps/lending/dist",
-            "ignore": [
-                "firebase.json",
-                "**/.*",
-                "**/node_modules/**"
-            ],
-            "rewrites": [
-                {
-                    "source": "**",
-                    "destination": "/index.html"
-                }
-            ]
-        },
-        {
-            "target": "main",
-            "public": "apps/main/dist",
-            "ignore": [
-                "firebase.json",
-                "**/.*",
-                "**/node_modules/**"
-            ],
-            "rewrites": [
-                {
-                    "source": "**",
-                    "destination": "/index.html"
-                }
-            ]
-        }
-    ],
+    "hosting": {
+        "public": "dist",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "/lending/**",
+                "destination": "/lending/index.html"
+            },
+            {
+                "source": "/membership/**",
+                "destination": "/membership/index.html"
+            },
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    },
     "emulators": {
         "auth": {
             "port": 9099

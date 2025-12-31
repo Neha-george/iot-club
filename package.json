@@ -7,7 +7,11 @@
     "scripts": {
         "dev": "concurrently \"npm run dev -w apps/main\" \"npm run dev -w apps/membership\" \"npm run dev -w apps/lending\"",
         "deploy:lending": "npm run build -w apps/lending && firebase deploy --only hosting:lending",
-        "deploy:main": "npm run build -w apps/main && firebase deploy --only hosting:main"
+        "deploy:main": "npm run build -w apps/main && firebase deploy --only hosting:main",
+        "deploy:membership": "npm run build -w apps/membership && firebase deploy --only hosting:membership",
+        "build:all": "concurrently \"npm run build -w apps/main\" \"npm run build -w apps/membership\" \"npm run build -w apps/lending\"",
+        "deploy": "npm run build:all && node scripts/merge-builds.js && firebase deploy",
+        "deploy:free": "npm run build:all && node scripts/merge-builds.js && firebase deploy --only hosting,firestore"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",
